@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI気まぐれバトルの参加者向けプレイガイド">
+<title>AI気まぐれバトル｜参加者向けプレイガイド</title>
+<style>
+:root{
+  --bg:#0b1220;--panel:#121e31;--panel2:#17263d;--line:#2b405d;
+  --text:#edf3fb;--muted:#aabbd0;--gold:#e7c77b;--blue:#75c8f2;
+  --green:#8ed7b0;--red:#ef9b9b;--purple:#c5a5f5;--shadow:0 14px 34px #0005;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:radial-gradient(ellipse at 50% -15%,#233c5c 0,#0b1220 52%);color:var(--text);
+  font-family:"Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;line-height:1.8}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{width:min(1120px,calc(100% - 36px));margin:auto}
+header{padding:62px 0 42px;text-align:center;border-bottom:1px solid #ffffff18}
+.eyebrow{color:var(--gold);letter-spacing:.2em;font-size:.78rem;font-weight:700}
+h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.25;margin:12px 0;color:#fff;letter-spacing:.04em}
+.lead{max-width:700px;margin:16px auto 0;color:var(--muted);font-size:1.03rem}
+.hero-tags{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.tag{border:1px solid #ffffff30;border-radius:99px;padding:5px 13px;color:#dce8f6;font-size:.82rem;background:#ffffff09}
+nav{position:sticky;top:0;z-index:10;background:#0b1220eF;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.navinner{display:flex;gap:8px;overflow-x:auto;padding:10px 0;white-space:nowrap}
+nav a{font-size:.82rem;padding:7px 11px;border-radius:8px;color:var(--muted)}
+nav a:hover{background:var(--panel2);color:#fff;text-decoration:none}
+main{padding:34px 0 80px}
+section{margin:0 0 58px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.num{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--gold);color:var(--gold);border-radius:12px;font-weight:800}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:0}
+h3{font-size:1.1rem;margin:0 0 10px;color:#fff}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.panel{background:linear-gradient(145deg,#17263b,#101a2b);border:1px solid var(--line);border-radius:17px;padding:22px;box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.callout{border-left:4px solid var(--gold);background:#e7c77b12;padding:13px 16px;border-radius:0 10px 10px 0;margin:16px 0}
+.callout.blue{border-color:var(--blue);background:#75c8f212}
+.callout.red{border-color:var(--red);background:#ef9b9b12}
+.pill{display:inline-block;border-radius:99px;padding:3px 10px;font-size:.76rem;font-weight:700;background:#ffffff12;color:var(--gold);margin-right:5px}
+ul,ol{padding-left:1.3em;margin:9px 0}
+li{margin:5px 0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--gold);font-weight:700;background:#ffffff08}
+td small{color:var(--muted)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.table-wrap table{margin:0;min-width:520px}
+.stat{background:#ffffff08;border:1px solid #ffffff18;border-radius:14px;padding:16px}
+.stat .symbol{font-size:1.5rem;margin-bottom:4px}
+.stat strong{display:block;font-size:1.05rem}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:18px 0}
+.flow-step{position:relative;text-align:center;padding:15px 7px;background:#ffffff09;border:1px solid var(--line);border-radius:12px}
+.flow-step b{display:block;color:var(--gold);font-size:1.1rem}
+.flow-step span{font-size:.82rem;color:var(--muted)}
+.flow-step:not(:last-child):after{content:"›";position:absolute;right:-10px;top:28%;font-size:1.4rem;color:var(--gold);z-index:2}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.gamecard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#ffffff06}
+.gamecard .top{padding:12px 15px;font-weight:800;display:flex;justify-content:space-between;gap:10px}
+.gamecard .body{padding:12px 15px;color:#d5e0ed}
+.gamecard .top{align-items:center}
+.card-art{width:76px;height:76px;flex:0 0 76px;object-fit:cover;border-radius:10px;border:1px solid #ffffff30;background:linear-gradient(145deg,#263b55,#111c2c);display:block}
+.card-title{display:flex;align-items:center;gap:12px;min-width:0}
+.card-title-name{min-width:0}
+.card-title-name strong{display:block;line-height:1.45}
+@media(max-width:420px){.card-art{width:64px;height:64px;flex-basis:64px}.gamecard .top{padding:10px 12px}}
+.item .top{background:#9a71331c;color:#f0d18c}
+.skill .top{background:#3e73a51c;color:#9bd7fa}
+.req{font-size:.78rem;border:1px solid currentColor;border-radius:99px;padding:2px 8px;white-space:nowrap}
+.scorebar{display:flex;gap:4px;align-items:end;height:95px;margin:14px 0 8px}
+.scorebar div{flex:1;border-radius:7px 7px 2px 2px;background:linear-gradient(#e7c77b,#9e7839);position:relative;min-width:0}
+.scorebar span{position:absolute;bottom:-25px;left:0;right:0;text-align:center;font-size:.72rem;color:var(--muted)}
+.scorebar b{position:absolute;top:-25px;left:0;right:0;text-align:center;font-size:.78rem;color:var(--gold)}
+footer{border-top:1px solid var(--line);padding:26px 0 42px;text-align:center;color:var(--muted);font-size:.85rem}
+details{background:#ffffff07;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:9px 0}
+summary{cursor:pointer;font-weight:700;color:#fff}
+details p{color:var(--muted);margin:10px 0 2px}
+.badge{font-size:.75rem;color:var(--green);font-weight:700}
+@media(max-width:760px){
+ .grid,.grid3,.card-grid{grid-template-columns:1fr}
+ .flow{grid-template-columns:1fr;gap:7px}
+ .flow-step:not(:last-child):after{content:"⌄";right:50%;top:auto;bottom:-17px;transform:translateX(50%)}
+ .panel{padding:17px}
+ header{padding:45px 0 32px}
+}
+@media print{
+ body{background:#fff;color:#111}
+ nav{display:none}.panel,.stat,.gamecard,details{box-shadow:none;background:#fff;color:#111;border-color:#bbb}
+ .muted,.gamecard .body,details p{color:#444}
+ h1,h2,h3,.gamecard .top{color:#111}
+ header{border-color:#aaa}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">ADVENTURE · STRATEGY · AI JUDGMENT</div>
+    <h1>AI気まぐれバトル</h1>
+    <div style="color:var(--gold);font-weight:700;letter-spacing:.12em">参加者向けプレイガイド</div>
+    <p class="lead">あなたのキャラクターが、AIの判断でバトルに挑む！<br>個性豊かなキャラクターとサポートカードを駆使して、チームの勝利を目指そう。</p>
+    <div class="hero-tags"><span class="tag">キャラクター登録</span><span class="tag">カード戦略</span><span class="tag">5試合制</span><span class="tag">AIが勝敗を判定</span></div>
+  </div>
+</header>
+<nav><div class="wrap navinner">
+  <a href="#about">ゲーム概要</a><a href="#entry">キャラ登録</a><a href="#status">ステータス</a><a href="#cards">カード</a><a href="#match">試合の流れ</a><a href="#judgment">勝敗と得点</a><a href="#team">チーム戦</a><a href="#faq">FAQ</a>
+</div></nav>
+<main class="wrap">
+
+<section id="about">
+ <div class="section-head"><div class="num">01</div><h2>AI気まぐれバトルとは？</h2></div>
+ <div class="panel">
+  <p>参加者が登録したキャラクターを、AIがステータス評価。サポートカードやフィールドを使った駆け引きを経て、AIが戦闘を描写し、勝敗を判定するチーム対抗ゲームです。</p>
+  <div class="grid3" style="margin-top:18px">
+   <div class="stat"><div class="symbol">⚖️</div><strong>AIが審判</strong><span class="muted">能力・カード効果を確認し、勝敗を決定。</span></div>
+   <div class="stat"><div class="symbol">📣</div><strong>AIが実況・進行</strong><span class="muted">キャラクターやフィールドに合わせてバトルを描写。</span></div>
+   <div class="stat"><div class="symbol">✨</div><strong>個性が勝負を動かす</strong><span class="muted">数値だけでなく、相性や戦術も勝敗の判断材料に。</span></div>
+  </div>
+ </div>
+ <div class="callout"><b>大切なポイント：</b>勝敗は参加者同士で決めるのではなく、決められたルールに沿ってAIが判定します。予想外の展開も含めて楽しみましょう！</div>
+</section>
+
+<section id="entry">
+ <div class="section-head"><div class="num">02</div><h2>キャラクターを登録しよう</h2></div>
+ <div class="panel">
+  <p>まずは専用Googleフォームから、バトルに参加させたいキャラクターの情報を登録します。</p>
+  <p style="margin:18px 0"><a href="https://forms.gle/3H4UMKKfRV4t7t8u8" target="_blank" rel="noopener" style="display:inline-block;background:linear-gradient(120deg,#d9b86d,#9d783c);color:#101827;padding:11px 20px;border-radius:9px;font-weight:800">キャラクター登録フォームを開く ↗</a></p>
+  <div class="grid">
+   <div>
+    <h3>キャラクター情報（必須）</h3>
+    <ul><li>キャラクター名</li><li>種族</li><li>性別</li><li>二つ名</li><li>ジョブ</li><li>特技</li></ul>
+    <p class="muted">キャラクターは2名分を登録します。</p>
+   </div>
+   <div>
+    <h3>オリジナルサポートカード（任意）</h3>
+    <ul><li>カード名</li><li>区分</li><li>効果</li></ul>
+    <p class="muted">自分だけのカードを考えて提出できます。提出しなくても参加できます。</p>
+   </div>
+  </div>
+ </div>
+ <div class="callout blue"><b>「AIにお任せ」もOK！</b><br>入力項目の一部をAIに考えてもらうこともできます。「AIにお任せ」と書いた項目だけをAIが補完し、それ以外の入力内容は勝手に変更しません。</div>
+ <div class="callout"><b>キャラクター設定は自由！</b><br>「戦士なのに魔法が得意」「見た目に反して怪力」など、一般的なイメージと違っていても大丈夫。あなたの考えた個性をそのまま登録してください。</div>
+</section>
+
+<section id="status">
+ <div class="section-head"><div class="num">03</div><h2>キャラクターのステータス</h2></div>
+ <p class="muted">登録したキャラクターの設定をもとに、AIが3つの要素を決定します。参加者が数値を指定することはできません。</p>
+ <div class="grid3">
+  <div class="stat"><div class="symbol">💪</div><strong>強さ：1～10</strong><p class="muted">攻撃力や戦闘能力の高さ。10は規格外の強さを表します。</p></div>
+  <div class="stat"><div class="symbol">🎯</div><strong>器用さ：1～5</strong><p class="muted">技術・技巧・精密な操作能力。カードを使う条件にも関係します。</p></div>
+  <div class="stat"><div class="symbol">🔺</div><strong>属性：3種類</strong><p class="muted">キャラクター全体の設定を見てAIが決定。三すくみの相性があります。</p></div>
+ </div>
+ <div class="panel" style="margin-top:16px">
+  <h3>属性の三すくみって？</h3>
+  <p class="muted">3つの属性がじゃんけんのように有利・不利で循環します。属性の名前やテーマは、参加キャラクターに合わせてAIが考えます。</p>
+  <svg viewBox="0 0 620 210" role="img" aria-label="属性Aは属性Bに有利、属性Bは属性Cに有利、属性Cは属性Aに有利の三すくみ図" style="width:100%;height:auto;max-height:230px">
+   <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="#e7c77b"/></marker></defs>
+   <path d="M180 55 L425 55" stroke="#e7c77b" stroke-width="3" marker-end="url(#arrow)"/>
+   <path d="M445 80 L330 160" stroke="#e7c77b" stroke-width="3" marker-end="url(#arrow)"/>
+   <path d="M285 160 L165 80" stroke="#e7c77b" stroke-width="3" marker-end="url(#arrow)"/>
+   <rect x="55" y="25" width="125" height="58" rx="13" fill="#254d70" stroke="#75c8f2"/><text x="117" y="61" fill="white" text-anchor="middle" font-size="19" font-weight="bold">属性 A</text>
+   <rect x="425" y="25" width="125" height="58" rx="13" fill="#604b7e" stroke="#c5a5f5"/><text x="487" y="61" fill="white" text-anchor="middle" font-size="19" font-weight="bold">属性 B</text>
+   <rect x="240" y="145" width="125" height="58" rx="13" fill="#3c684f" stroke="#8ed7b0"/><text x="302" y="181" fill="white" text-anchor="middle" font-size="19" font-weight="bold">属性 C</text>
+   <text x="300" y="42" fill="#e7c77b" text-anchor="middle" font-size="12">有利</text>
+   <text x="405" y="127" fill="#e7c77b" text-anchor="middle" font-size="12">有利</text>
+   <text x="193" y="127" fill="#e7c77b" text-anchor="middle" font-size="12">有利</text>
+  </svg>
+  <div class="callout">属性で有利になると、サポートカードの処理後に強さが<strong>+2</strong>されます。なお、特定のカードで属性相性が無効になる場合もあります。</div>
+ </div>
+</section>
+
+<section id="cards">
+ <div class="section-head"><div class="num">04</div><h2>サポートカードを使いこなそう</h2></div>
+ <p>各キャラクターは共通の基本サポートカード10枚を持っています。オリジナルカードが採用された場合は、さらに最大1枚を所持できます。</p>
+ <div class="callout blue"><b>カード使用の基本ルール</b><br>1試合につき1枚を必ず使用します。双方が同時にカードを選び、同時に公開します。相手のカードを見てから選ぶことはできません。一度使用したカードは、同じキャラクターの以降の試合では再使用できません。</div>
+ <h3 style="margin-top:22px">アイテムカード（5種類）</h3>
+ <div class="card-grid">
+  <div class="gamecard item"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/gouriki-potion.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>剛力の薬</strong></div></div><span class="req">器用さ 1以上</span></div><div class="body">飲むと力が漲る薬。<br>使用すると強さを<strong>+2</strong>する。</div></div>
+  <div class="gamecard item"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/momora-mora.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>モモラ・モラ</strong></div></div><span class="req">器用さ 1以上</span></div><div class="body">メルトール海峡南を揺蕩うマンボウ。<br>何故か不思議な海流を呼び、自分の属性を「海」に変更してしまう。<br>※属性相性を無効化する。</div></div>
+  <div class="gamecard item"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/byregot-hammer.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>ビエルゴのハンマー</strong></div></div><span class="req">器用さ 2以上</span></div><div class="body">工神ビエルゴの加護により器用さを<strong>+2</strong>する道具。<br>彫金用とはいえハンマーではあるので強さも<strong>+1</strong>する。</div></div>
+  <div class="gamecard item"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/heavysteel-armor.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>ヘヴィスチルアーマー</strong></div></div><span class="req">器用さ 2以上</span></div><div class="body">顔から身体まで覆いつくし強さを<strong>+4</strong>する頑丈な鎧。<br>ただし重くて動きづらい為、器用さを<strong>−2</strong>してしまう。</div></div>
+  <div class="gamecard item"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/zodiac-weapon.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>ゾディアックウェポン</strong></div></div><span class="req">器用さ 3以上</span></div><div class="body">強さを<strong>+3</strong>する伝説の武器。<br>強い輝きを放っているので暗いところでもよく見える。</div></div>
+ </div>
+ <h3 style="margin-top:24px">スキルカード（5種類）</h3>
+ <div class="card-grid">
+  <div class="gamecard skill"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/weapon-break.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>ウエポンブレイク</strong></div></div><span class="req">器用さ 3以上</span></div><div class="body">相手がアイテムカードを使っていた場合、<br>そのアイテムを破壊して無効化する。</div></div>
+  <div class="gamecard skill"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/bloodbath.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>ブラッドバス</strong></div></div><span class="req">器用さ 4以上</span></div><div class="body">相手の力を奪って自分の強さに変換する。<br>自分の強さを<strong>+2</strong>、相手の強さを<strong>−2</strong>する。</div></div>
+  <div class="gamecard skill"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/ether-copy.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>エーテルコピー</strong></div></div><span class="req">器用さ 4以上</span></div><div class="body">相手の最終的な強さと属性をコピーする。</div></div>
+  <div class="gamecard skill"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/steal.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>ぶんどる</strong></div></div><span class="req">相手以上の器用さ</span></div><div class="body">相手が選んだサポートカードを奪い、そのまま使用する。<br>自分より器用な相手からは奪うことは出来ない。</div></div>
+  <div class="gamecard skill"><div class="top"><div class="card-title"><img class="card-art" src="images/cards/reprisal.png" alt="" onerror="this.style.visibility='hidden'"><div class="card-title-name"><strong>リプライザル</strong></div></div><span class="req">相手以上の器用さ</span></div><div class="body">相手の「基礎強さ＋アイテムによる強さ補正」を0.7倍（小数点以下切り捨て）にする。</div></div>
+ </div>
+ <div class="callout red"><b>器用さに注意！</b><br>カードごとに必要な器用さが決まっています。条件を満たしていないカードは選択できません。「ぶんどる」「リプライザル」は相手の器用さ以上である必要があります。</div>
+ <div class="panel" style="margin-top:16px">
+  <h3>カードの処理順</h3>
+  <div class="flow">
+   <div class="flow-step"><b>①</b><span>基礎ステータス</span></div>
+   <div class="flow-step"><b>②</b><span>アイテム効果</span></div>
+   <div class="flow-step"><b>③</b><span>スキル効果</span></div>
+   <div class="flow-step"><b>④</b><span>属性相性</span></div>
+   <div class="flow-step"><b>⑤</b><span>最終比較</span></div>
+  </div>
+  <p class="muted">アイテムの効果を先に処理し、その後スキル、最後に属性相性を判定します。カードの組み合わせによって特殊な処理が発生することもあります。</p>
+ </div>
+ <h3 style="margin-top:22px">オリジナルサポートカード</h3>
+ <p>自分で考えたカードを提出できます。採用された場合は、基本カードとは別枠で使用できます。効果やバランスを確認したうえで採用内容が決まります。提出は任意なので、無理に考える必要はありません。</p>
+</section>
+
+<section id="match">
+ <div class="section-head"><div class="num">05</div><h2>試合の進め方</h2></div>
+ <div class="panel">
+  <p>1セットは全5試合。試合が進むほど、獲得できるポイントも大きくなります。</p>
+  <div class="flow">
+   <div class="flow-step"><b>先鋒</b><span>第1試合</span></div>
+   <div class="flow-step"><b>次鋒</b><span>第2試合</span></div>
+   <div class="flow-step"><b>中堅</b><span>第3試合</span></div>
+   <div class="flow-step"><b>副将</b><span>第4試合</span></div>
+   <div class="flow-step"><b>大将</b><span>第5試合</span></div>
+  </div>
+  <h3>1試合の流れ</h3>
+  <ol>
+   <li>両チームが出場キャラクターを決める。</li>
+   <li>それぞれ、使用可能なサポートカードを1枚選ぶ。</li>
+   <li>双方のカードを同時に公開する。</li>
+   <li>AIがカード効果・ステータス・属性相性を処理する。</li>
+   <li>AIがフィールドやキャラクターの個性を活かした戦闘を描写する。</li>
+   <li>AIが勝敗と「圧勝／辛勝」を判定し、ポイントを付与する。</li>
+  </ol>
+ </div>
+ <div class="callout"><b>フィールドにも注目！</b><br>第1試合は事前に指定されたフィールドで行います。第2試合以降は、直前の試合で負けたチームが次のフィールドを選択します。フィールドとキャラクターの相性が、勝敗を左右するかもしれません。</div>
+ <p class="muted">フィールドとの相性はAIが勝敗判断に反映しますが、強さの数値そのものが増減するわけではありません。</p>
+</section>
+
+<section id="judgment">
+ <div class="section-head"><div class="num">06</div><h2>勝敗とポイント</h2></div>
+ <p>試合ごとの勝利には「圧勝」と「辛勝」の2種類があり、判定によって獲得ポイントが変わります。</p>
+ <div class="grid">
+  <div class="stat"><span class="pill" style="color:var(--gold)">圧勝</span><strong>基本配点の1.5倍</strong><p class="muted">大きな差をつけて勝利！高得点を獲得できます。</p></div>
+  <div class="stat"><span class="pill" style="color:var(--blue)">辛勝</span><strong>基本配点の1.0倍</strong><p class="muted">接戦を制して勝利。基本配点を獲得します。</p></div>
+ </div>
+ <div class="table-wrap" style="margin-top:16px">
+  <table><thead><tr><th>試合</th><th>基本配点</th><th>圧勝</th><th>辛勝</th><th>敗北</th></tr></thead>
+   <tbody><tr><td>先鋒</td><td>100点</td><td>150点</td><td>100点</td><td>0点</td></tr>
+   <tr><td>次鋒</td><td>150点</td><td>225点</td><td>150点</td><td>0点</td></tr>
+   <tr><td>中堅</td><td>200点</td><td>300点</td><td>200点</td><td>0点</td></tr>
+   <tr><td>副将</td><td>250点</td><td>375点</td><td>250点</td><td>0点</td></tr>
+   <tr><td>大将</td><td>300点</td><td>450点</td><td>300点</td><td>0点</td></tr></tbody>
+  </table>
+ </div>
+ <div class="panel" style="margin-top:16px">
+  <h3>配点イメージ</h3>
+  <div class="scorebar">
+   <div style="height:22%"><b>100</b><span>先鋒</span></div>
+   <div style="height:33%"><b>150</b><span>次鋒</span></div>
+   <div style="height:44%"><b>200</b><span>中堅</span></div>
+   <div style="height:56%"><b>250</b><span>副将</span></div>
+   <div style="height:67%"><b>300</b><span>大将</span></div>
+  </div>
+  <p class="muted" style="margin-top:36px">後半の試合ほど基本配点が高くなります。最後まで逆転のチャンスがあります！</p>
+ </div>
+ <div class="callout blue"><b>5試合終了後、チームの総得点で勝敗が決定！</b><br>総得点が高いチームの勝利です。総得点が同じ場合は、イベント全体として引き分けになります。個別の試合に引き分けはありません。</div>
+ <h3 style="margin-top:22px">AIは何を見て勝敗を決める？</h3>
+ <ul><li>サポートカード適用後の強さ</li><li>種族・二つ名・ジョブ・特技とフィールドの相性</li><li>キャラクター同士の相性や戦術</li><li>試合展開や立ち回り</li></ul>
+ <p class="muted">強さの差が大きいほど有利ですが、数値だけで機械的に決まるわけではありません。特に接戦では、相性や展開によって結果が変わることがあります。</p>
+</section>
+
+<section id="team">
+ <div class="section-head"><div class="num">07</div><h2>チーム戦について</h2></div>
+ <div class="grid">
+  <div class="panel"><h3>チーム分け</h3><p>参加者の人数やキャラクターのステータスなどを参考に、チームの人数・戦力ができるだけ偏らないように編成します。</p></div>
+  <div class="panel"><h3>出場順</h3><p>各チームの出場順は、そのチームのメンバーで相談して決めます。AIが出場順を指定することはありません。</p></div>
+ </div>
+ <div class="callout"><b>欠席・辞退の場合</b><br>欠席者や辞退者が出た場合、その人のキャラクターは同じチームのメンバーが代わりに使用します。登録後のキャラクター変更はできません。最初に登録したキャラクターで最後まで戦いましょう！</div>
+ <p class="muted">チーム数や対戦セット数などの詳細は、参加人数に応じて運営から案内します。</p>
+</section>
+
+<section id="faq">
+ <div class="section-head"><div class="num">08</div><h2>FAQ</h2></div>
+ <details><summary>ステータスを自分で決めることはできますか？</summary><p>できません。強さ・器用さ・属性は、登録されたキャラクター設定をもとにAIが決定します。</p></details>
+ <details><summary>キャラクターの設定が強そうなら、必ず高ステータスになりますか？</summary><p>AIが設定全体を見て判断します。名前や二つ名だけでなく、種族・ジョブ・特技なども評価材料になります。</p></details>
+ <details><summary>オリジナルサポートカードは必ず提出しないといけませんか？</summary><p>いいえ。提出は任意です。提出しない場合も、基本サポートカード10種類を使って参加できます。</p></details>
+ <details><summary>器用さが足りないカードを選んでしまったら？</summary><p>要求器用さを満たしていないカードは選択できません。選択時に条件を確認してください。入力ミスがあった場合は運営が確認・修正します。</p></details>
+ <details><summary>一度使ったカードをもう一度使えますか？</summary><p>使えません。使用したカードは消費され、同じキャラクターの以降の試合では再使用できません。</p></details>
+ <details><summary>相手のカードを見てから自分のカードを選べますか？</summary><p>できません。双方が同時に選択し、同時に公開します。</p></details>
+ <details><summary>自分のキャラクターが負けたら、チームも負けですか？</summary><p>いいえ。チームの勝敗は5試合の総得点で決まります。1試合の敗北だけでチーム全体の敗北が決まるわけではありません。</p></details>
+ <details><summary>戦闘の勝敗は完全にステータスだけで決まりますか？</summary><p>いいえ。強さやカード効果に加えて、キャラクターの設定・フィールドとの相性・戦術なども考慮してAIが判定します。</p></details>
+ <details><summary>試合に引き分けはありますか？</summary><p>個別試合に引き分けはありません。必ずどちらかが勝者になります。ただし、5試合の総得点が同じ場合はイベント全体が引き分けになります。</p></details>
+</section>
+
+<div class="panel" style="text-align:center;padding:28px">
+ <div class="eyebrow">READY FOR BATTLE?</div>
+ <h2 style="margin:8px 0 12px">あとは、戦いを楽しむだけ！</h2>
+ <p class="muted">あなたのキャラクターは、どんな戦いを見せてくれるでしょうか？<br>仲間と作戦を練り、カードを選び、AI気まぐれバトルを楽しみましょう！</p>
+</div>
+</main>
+<footer><div class="wrap">AI気まぐれバトル｜参加者向けプレイガイド<br><span>※本ガイドは現時点のルールをもとにした案です。最終的な運営案内を優先してください。</span></div></footer>
+</body>
+</html>
