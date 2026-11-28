@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星影のアトリエ | AI気まぐれバトル</title>
+
+<style>
+:root {
+  --bg:#171326;
+  --panel:#29213f;
+  --panel2:#35294e;
+  --line:#59466f;
+  --text:#f7f0ff;
+  --muted:#c2b2d3;
+  --accent:#d6a8f2;
+  --accent2:#f2d7ff;
+  --chaos:#e58aab;
+  --order:#8fb8ed;
+  --balance:#e5c47c;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  color:var(--text);
+  line-height:1.65;
+  background:
+    radial-gradient(ellipse at 50% -12%,#604477 0%,transparent 43%),
+    radial-gradient(circle at 8% 35%,#342344 0%,transparent 30%),
+    linear-gradient(155deg,#171326,#100e1b 75%);
+  font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+}
+
+header {
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  padding:54px 18px 38px;
+  border-bottom:1px solid #72598b;
+  background:linear-gradient(180deg,rgba(105,69,132,.35),rgba(23,19,38,.08));
+}
+
+header:before, header:after {
+  content:"✦";
+  position:absolute;
+  color:#f2d7ff55;
+  font-size:4rem;
+}
+header:before { left:9%;top:20px; }
+header:after { right:10%;bottom:12px;font-size:2.8rem; }
+
+.kicker {
+  font-size:.75rem;
+  letter-spacing:.32em;
+  color:var(--accent2);
+  font-weight:700;
+}
+
+h1 {
+  margin:9px 0 3px;
+  font-family:"Yu Mincho","Hiragino Mincho ProN",serif;
+  font-size:clamp(2.2rem,7vw,4.5rem);
+  letter-spacing:.12em;
+  color:#f6e8ff;
+  text-shadow:0 0 28px #d6a8f277;
+}
+
+.subtitle {
+  color:var(--muted);
+  font-size:.82rem;
+  letter-spacing:.25em;
+}
+
+.team-mark {
+  display:inline-block;
+  margin-top:17px;
+  padding:5px 17px;
+  border:1px solid #c99ce5;
+  border-radius:99px;
+  color:#f0d8ff;
+  font-size:.72rem;
+  letter-spacing:.2em;
+}
+
+main {
+  max-width:1180px;
+  margin:auto;
+  padding:30px 20px 64px;
+}
+
+section { margin:0 0 38px; }
+
+.section-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 17px;
+}
+
+.section-head:before {
+  content:"";
+  width:4px;
+  height:25px;
+  background:var(--accent);
+  box-shadow:0 0 13px #d6a8f288;
+}
+
+h2 {
+  margin:0;
+  font-family:"Yu Mincho",serif;
+  font-size:1.28rem;
+  letter-spacing:.13em;
+  color:#f0ddff;
+}
+
+.section-note {
+  margin-left:auto;
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.12em;
+}
+
+.team-summary {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:11px;
+  margin-bottom:30px;
+}
+
+.summary-cell {
+  padding:14px 12px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:linear-gradient(145deg,#342747,#211a31);
+}
+
+.summary-label {
+  display:block;
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.1em;
+}
+
+.summary-value {
+  display:block;
+  color:#f3ddff;
+  font-size:1.35rem;
+  font-weight:800;
+}
+
+.profile-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:17px;
+}
+
+.profile {
+  background:linear-gradient(155deg,#302642,#1e192c 82%);
+  border:1px solid #5d4a70;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 30px #0004;
+}
+
+.profile-top {
+  padding:17px 20px 14px;
+  background:linear-gradient(110deg,#5b3c70,#382847);
+  border-bottom:1px solid #775b8b;
+}
+
+.profile-number {
+  font-size:.68rem;
+  color:#e4c7f5;
+  letter-spacing:.2em;
+}
+
+.profile h3 {
+  margin:4px 0 1px;
+  font-size:1.2rem;
+  color:#fff5ff;
+  overflow-wrap:anywhere;
+}
+
+.epithet {
+  color:#e1c7f2;
+  font-size:.86rem;
+}
+
+.profile-body { padding:16px 20px 19px; }
+
+.facts {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px 14px;
+  margin-bottom:13px;
+}
+
+.fact-label {
+  display:block;
+  font-size:.66rem;
+  color:#bba6cc;
+  letter-spacing:.08em;
+}
+
+.fact-value {
+  font-size:.88rem;
+  color:#f5edfb;
+  overflow-wrap:anywhere;
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:14px 0;
+}
+
+.stat {
+  padding:9px 6px;
+  text-align:center;
+  border:1px solid #59466b;
+  border-radius:10px;
+  background:#191526;
+}
+
+.stat-label {
+  display:block;
+  font-size:.72rem;
+  color:#c1afcf;
+}
+
+.stat-value {
+  font-weight:800;
+  font-size:1rem;
+}
+
+.stat-value.strength { color:#f1d49b; }
+.stat-value.dex { color:#a9cdf5; }
+
+.attribute {
+  display:inline-block;
+  padding:2px 9px;
+  border-radius:99px;
+  font-size:.78rem;
+  font-weight:700;
+}
+
+.attribute.chaos {
+  color:#ffd8e4;
+  background:#713b54;
+}
+
+.attribute.order {
+  color:#dceaff;
+  background:#344e70;
+}
+
+.attribute.balance {
+  color:#ffedc3;
+  background:#65512f;
+}
+
+.detail {
+  margin-top:11px;
+  padding-top:10px;
+  border-top:1px solid #4b3b5c;
+}
+
+.detail-title {
+  font-size:.8rem;
+  color:#d8b7ed;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+
+.detail p {
+  margin:3px 0 0;
+  font-size:.85rem;
+  color:#e8deef;
+  white-space:pre-wrap;
+}
+
+.support-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+
+.support {
+  padding:18px 19px;
+  border:1px solid #80638f;
+  border-radius:14px;
+  background:linear-gradient(145deg,#3b2a4b,#211a30);
+}
+
+.support-type {
+  font-size:.7rem;
+  color:#d9b9eb;
+  letter-spacing:.13em;
+}
+
+.support h3 {
+  margin:4px 0 7px;
+  color:#fff0ff;
+  font-size:1.12rem;
+}
+
+.effect {
+  font-size:1.05rem;
+  font-weight:800;
+  color:#f2d29b;
+  margin:3px 0;
+}
+
+.support p {
+  margin:5px 0 0;
+  color:#d9cde3;
+  font-size:.83rem;
+}
+
+.rival-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.rival {
+  padding:16px;
+  border:1px solid #51435f;
+  border-radius:13px;
+  background:#211b2e;
+}
+
+.rival h3 {
+  margin:0 0 9px;
+  color:#e8d4f4;
+  font-family:"Yu Mincho",serif;
+  letter-spacing:.06em;
+}
+
+.rival table {
+  width:100%;
+  border-collapse:collapse;
+  text-align:left;
+}
+
+.rival th, .rival td {
+  padding:7px 5px;
+  border-bottom:1px solid #40334e;
+  font-size:.78rem;
+}
+
+.rival th {
+  color:#bca8cb;
+  font-weight:600;
+}
+
+.rival td:not(:first-child),
+.rival th:not(:first-child) {
+  text-align:center;
+}
+
+.rival tr:last-child td { border-bottom:0; }
+
+footer {
+  text-align:center;
+  color:#9583a7;
+  font-size:.7rem;
+  padding:20px;
+  border-top:1px solid #382b47;
+  letter-spacing:.1em;
+}
+
+@media(max-width:760px) {
+  main { padding:23px 13px 45px; }
+  .profile-grid,.support-grid,.rival-grid { grid-template-columns:1fr; }
+  .team-summary { grid-template-columns:repeat(2,1fr); }
+  .section-note { display:none; }
+  .profile-body { padding:14px 15px 17px; }
+  .profile-top { padding:15px; }
+  .rival th,.rival td { font-size:.74rem;padding:7px 3px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="kicker">FC GARNET PRESENTS</div>
+  <h1>星影のアトリエ</h1>
+  <div class="subtitle">AI CAPRICIOUS BATTLE</div>
+  <div class="team-mark">TEAM 01 · TEAM INFORMATION</div>
+</header>
+
+<main>
+
+  <section>
+    <div class="team-summary">
+      <div class="summary-cell">
+        <span class="summary-label">MEMBERS</span>
+        <span class="summary-value">6</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-label">TOTAL POWER</span>
+        <span class="summary-value">67</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-label">TEAM COLOR</span>
+        <span class="summary-value">紫・星色</span>
+      </div>
+      <div class="summary-cell">
+        <span class="summary-label">TEAM ATTRIBUTE</span>
+        <span class="summary-value">混成</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>キャラクターカード</h2>
+      <span class="section-note">CHARACTER PROFILES · A–Z</span>
+    </div>
+
+    <div class="profile-grid">
+
+      <!-- Chloe Ranunculus -->
+      <article class="profile">
+        <div class="profile-top">
+          <div class="profile-number">CHARACTER 01</div>
+          <h3>Chloe Ranunculus</h3>
+          <div class="epithet">恋の架け橋</div>
+        </div>
+        <div class="profile-body">
+          <div class="facts">
+            <div><span class="fact-label">種族</span><span class="fact-value">ヴィエラ / ヴィナ・ヴィエラ</span></div>
+            <div><span class="fact-label">性別</span><span class="fact-value">女性</span></div>
+            <div><span class="fact-label">ジョブ</span><span class="fact-value">暗黒騎士</span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-label">強さ</span><span class="stat-value strength">8</span></div>
+            <div class="stat"><span class="stat-label">器用さ</span><span class="stat-value dex">4</span></div>
+            <div class="stat"><span class="stat-label">属性</span><span class="attribute balance">均衡</span></div>
+          </div>
+          <div class="detail">
+            <div class="detail-title">ジョブ説明</div>
+            <p>大剣を振るい、闇の力を代償として強大な攻撃力と防御力を発揮する。</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技</div>
+            <p>パッセージ・オブ・アームス</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技説明</div>
+            <p>光の翼を展開し、自身と背後の仲間を守る防御技。</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Mare Cielia -->
+      <article class="profile">
+        <div class="profile-top">
+          <div class="profile-number">CHARACTER 02</div>
+          <h3>Mare Cielia</h3>
+          <div class="epithet">絵描き師の暗躍活動</div>
+        </div>
+        <div class="profile-body">
+          <div class="facts">
+            <div><span class="fact-label">種族</span><span class="fact-value">ミコッテ / ムーンキーパー</span></div>
+            <div><span class="fact-label">性別</span><span class="fact-value">男性</span></div>
+            <div><span class="fact-label">ジョブ</span><span class="fact-value">悪学者</span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-label">強さ</span><span class="stat-value strength">6</span></div>
+            <div class="stat"><span class="stat-label">器用さ</span><span class="stat-value dex">3</span></div>
+            <div class="stat"><span class="stat-label">属性</span><span class="attribute chaos">混沌</span></div>
+          </div>
+          <div class="detail">
+            <div class="detail-title">ジョブ説明</div>
+            <p>ヒールは人を救うことを仕事としない。愛用の本は人を物理で殴るためにある。</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技</div>
+            <p>ヘイトプレゼント</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技説明</div>
+            <p>相手を不快感にさせるほど力が増幅する。最大になれば軽く叩くだけでノックアウト。</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Novembre Swarovski -->
+      <article class="profile">
+        <div class="profile-top">
+          <div class="profile-number">CHARACTER 03</div>
+          <h3>Novembre Swarovski</h3>
+          <div class="epithet">声で黙らせ歌で制する最強兵器</div>
+        </div>
+        <div class="profile-body">
+          <div class="facts">
+            <div><span class="fact-label">種族</span><span class="fact-value">雪だるま型アンドロイド</span></div>
+            <div><span class="fact-label">性別</span><span class="fact-value">男性</span></div>
+            <div><span class="fact-label">ジョブ</span><span class="fact-value">清掃員に扮した敏腕スナイパー</span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-label">強さ</span><span class="stat-value strength">9</span></div>
+            <div class="stat"><span class="stat-label">器用さ</span><span class="stat-value dex">4</span></div>
+            <div class="stat"><span class="stat-label">属性</span><span class="attribute order">秩序</span></div>
+          </div>
+          <div class="detail">
+            <div class="detail-title">ジョブ説明</div>
+            <p>掃除道具に偽装した武器を操り、標的を正確に仕留める凄腕の狙撃手。</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技</div>
+            <p>Be mine, and cry out my name.</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技説明</div>
+            <p>あなたの恐怖も痛みも全て力に変えて世界をぶち壊す。瞬く間に引き金は引かれてる。</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Sazh Katzroy -->
+      <article class="profile">
+        <div class="profile-top">
+          <div class="profile-number">CHARACTER 04</div>
+          <h3>Sazh Katzroy</h3>
+          <div class="epithet">義理人情に厚い中年男性</div>
+        </div>
+        <div class="profile-body">
+          <div class="facts">
+            <div><span class="fact-label">種族</span><span class="fact-value">ヒューラン / ハイランダー</span></div>
+            <div><span class="fact-label">性別</span><span class="fact-value">男性</span></div>
+            <div><span class="fact-label">ジョブ</span><span class="fact-value">機工士</span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-label">強さ</span><span class="stat-value strength">7</span></div>
+            <div class="stat"><span class="stat-label">器用さ</span><span class="stat-value dex">4</span></div>
+            <div class="stat"><span class="stat-label">属性</span><span class="attribute balance">均衡</span></div>
+          </div>
+          <div class="detail">
+            <div class="detail-title">ジョブ説明</div>
+            <p>銃火器や機工兵器を使いこなし、遠距離から安定した攻撃を行う。</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技</div>
+            <p>オートボウガン</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技説明</div>
+            <p>前方扇範囲に向けて連続射撃を行う。</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Shun Whiterock -->
+      <article class="profile">
+        <div class="profile-top">
+          <div class="profile-number">CHARACTER 05</div>
+          <h3>Shun Whiterock</h3>
+          <div class="epithet">ネクロマンサー</div>
+        </div>
+        <div class="profile-body">
+          <div class="facts">
+            <div><span class="fact-label">種族</span><span class="fact-value">ミコッテ / ムーンキーパー</span></div>
+            <div><span class="fact-label">性別</span><span class="fact-value">男性</span></div>
+            <div><span class="fact-label">ジョブ</span><span class="fact-value">ガンブレイカー</span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-label">強さ</span><span class="stat-value strength">8</span></div>
+            <div class="stat"><span class="stat-label">器用さ</span><span class="stat-value dex">3</span></div>
+            <div class="stat"><span class="stat-label">属性</span><span class="attribute chaos">混沌</span></div>
+          </div>
+          <div class="detail">
+            <div class="detail-title">ジョブ説明</div>
+            <p>魔弾を装填した剣と防御機構を駆使し、攻防一体の戦闘を行うタンク。</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技</div>
+            <p>オーロラ</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技説明</div>
+            <p>自身または味方に継続回復効果を付与する。</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- TenTen Bebephoque -->
+      <article class="profile">
+        <div class="profile-top">
+          <div class="profile-number">CHARACTER 06</div>
+          <h3>TenTen Bebephoque</h3>
+          <div class="epithet">スローライフ探求者</div>
+        </div>
+        <div class="profile-body">
+          <div class="facts">
+            <div><span class="fact-label">種族</span><span class="fact-value">ララフェル / デューンフォーク</span></div>
+            <div><span class="fact-label">性別</span><span class="fact-value">女性</span></div>
+            <div><span class="fact-label">ジョブ</span><span class="fact-value">白魔道士</span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-label">強さ</span><span class="stat-value strength">7</span></div>
+            <div><span class="stat-label">器用さ</span><span class="stat-value dex">4</span></div>
+            <div><span class="stat-label">属性</span><span class="attribute chaos">混沌</span></div>
+          </div>
+          <div class="detail">
+            <div class="detail-title">ジョブ説明</div>
+            <p>自然の力を借りて傷を癒やし、仲間を守る回復役。</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技</div>
+            <p>ブチ切れメテオ</p>
+          </div>
+          <div class="detail">
+            <div class="detail-title">特技説明</div>
+            <p>怒りを限界まで溜め込み、天から巨大な隕石を叩き落とす。</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>チームオリジナルサポート</h2>
+      <span class="section-note">TEAM SUPPORT OPTIONS</span>
+    </div>
+
+    <div class="support-grid">
+      <div class="support">
+        <div class="support-type">SKILL · MARE CIELIA</div>
+        <h3>魅惑の時間停止</h3>
+        <div class="effect">相手の強さ −5</div>
+        <p>発動条件：器用さ5</p>
+        <p>時間を止めることによって相手の強さを大きく下げる。</p>
+      </div>
+
+      <div class="support">
+        <div class="support-type">SKILL · CHLOE RANUNCULUS</div>
+        <h3>調理＆食事</h3>
+        <div class="effect">自身の強さ ＋2 ／ 器用さ ＋1</div>
+        <p>発動条件：器用さ2</p>
+        <p>自身の能力を底上げする自己強化型サポート。</p>
+      </div>
+    </div>
+
+    <p style="color:var(--muted);font-size:.78rem;margin:10px 2px 0">
+      ※チームは候補のうち1つを選択して使用します。サポートは1試合につき1つまでです。
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>対戦チーム</h2>
+      <span class="section-note">RIVAL TEAMS</span>
+    </div>
+
+    <div class="rival-grid">
+
+      <div class="rival">
+        <h3>蒼天の守護者</h3>
+        <table>
+          <thead>
+            <tr><th>キャラクター</th><th>強さ</th><th>器用さ</th><th>属性</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cid Wheeler</td><td>7</td><td>4</td><td>秩序</td></tr>
+            <tr><td>Cid Raines</td><td>8</td><td>3</td><td>秩序</td></tr>
+            <tr><td>Healer Tow</td><td>6</td><td>5</td><td>秩序</td></tr>
+            <tr><td>Mako Shinshu</td><td>8</td><td>4</td><td>均衡</td></tr>
+            <tr><td>Mieya Rivee</td><td>7</td><td>4</td><td>秩序</td></tr>
+            <tr><td>Thistle Vagospt</td><td>6</td><td>5</td><td>均衡</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rival">
+        <h3>混沌の残響</h3>
+        <table>
+          <thead>
+            <tr><th>キャラクター</th><th>強さ</th><th>器用さ</th><th>属性</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Disene Diozesm</td><td>8</td><td>4</td><td>秩序</td></tr>
+            <tr><td>Katy Kobayashi</td><td>8</td><td>4</td><td>混沌</td></tr>
+            <tr><td>Lyly Orr</td><td>7</td><td>4</td><td>均衡</td></tr>
+            <tr><td>Mattun Leonhart</td><td>7</td><td>4</td><td>混沌</td></tr>
+            <tr><td>Murder Korosunoski</td><td>10</td><td>1</td><td>混沌</td></tr>
+            <tr><td>Potter</td><td>7</td><td>3</td><td>均衡</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  FC GARNET · AI CAPRICIOUS BATTLE · 星影のアトリエ
+</footer>
+
+</body>
+</html>
